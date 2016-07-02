@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @playlist.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @playlist.description %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @playlist.user.email %>
+</p>
+
+<div>
+  <% @playlist.links.each do |link| %>
+    <%= video_tag(link.url, controls: true) %>
+  <% end %>
+</div>
+
+<h5><%= link_to "Comments", playlist_comments_path(@playlist) %>:</h5>
+<%= render 'comments/show_comments' %>
+
+<% if user_signed_in? && current_user.admin? || current_user == @playlist.user %>
+  <%= link_to 'Edit', edit_playlist_path(@playlist) %> |
+<% end %>
+<%= link_to 'Back', playlists_path %>

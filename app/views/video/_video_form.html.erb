@@ -1,0 +1,7 @@
+<%= form_tag("/", method: "get") do %>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <%= text_field_tag :url, nil, class: "mdl-textfield__input" %>
+    <%= label_tag :url, "Enter Video URL", class: "mdl-textfield__label" %>
+  </div>
+  <%= button_tag "Stream", type: 'submit', class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" %>
+<% end %>

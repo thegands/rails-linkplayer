@@ -5,3 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+User.create(email: 'test@test.com', password: 'testtest', role: :admin).playlists.create(title: 'First Playlist', user: User.first).links.create(url: 'http://www.w3schools.com/html/mov_bbb.mp4')
+# Playlist.create(title: 'First Playlist', user: User.first).links.create(url: 'http://www.w3schools.com/html/mov_bbb.mp4')
+# Link.create(url: 'http://www.w3schools.com/html/mov_bbb.mp4', playlist: Playlist.first)
