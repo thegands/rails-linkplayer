@@ -19,8 +19,14 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @comnent.update(comnent_params)
-    respond_with(@comnent)
+    @comment.update(comment_params)
+    respond_with(@comment.playlist)
+  end
+
+  def destroy
+    authorize @comment
+    @comment.destroy
+    respond_with(Playlist.find(params[:playlist_id]))
   end
 
   private
