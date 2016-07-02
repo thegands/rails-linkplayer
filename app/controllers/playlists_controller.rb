@@ -1,3 +1,4 @@
+require 'pry'
 class PlaylistsController < ApplicationController
   before_action :set_playlist, only: [:show, :edit, :update, :destroy]
 
@@ -24,15 +25,17 @@ class PlaylistsController < ApplicationController
   end
 
   def create
-    @playlist = Playlist.new
-    authorize @playlist
-    @playlist.assign_attributes(playlist_params)
+    @playlist = Playlist.new(playlist_params)
+    @playlist.links = processed_links
     @playlist.save
+    authorize @playlist
     respond_with(@playlist)
   end
 
   def update
-    @playlist.update(playlist_params)
+    @playlist.update(update_playlist_params)
+    @playlist.links = processed_links
+    @playlist.save
     respond_with(@playlist)
   end
 
@@ -48,6 +51,27 @@ class PlaylistsController < ApplicationController
     end
 
     def playlist_params
-      params.require(:playlist).permit(:title, :description, links_attributes: [:url, :id, :_destroy]).merge(user_id: current_user.id)
+      params.require(:playlist).permit(
+        :title,
+        :description,
+      ).merge(user_id: current_user.id)
     end
+
+    def update_playlist_params
+      params.require(:playlist).permit(
+        :title,
+        :description
+      )
+    end
+
+    def links_attributes
+      params.require(:playlist).permit(
+        links_attributes: [:url, :_destroy]
+      )[:links_attributes]
+    end
+
+    def processed_links
+       Link.process_links(links_attributes)
+    end
+
 end
