@@ -13,11 +13,9 @@ class Playlist < ActiveRecord::Base
       self.links.clear
 
       links_hashes.each do |i, links_hashes|
-        link = Link.find_by(url: links_hashes[:url])
-        if links_hashes[:_destroy] == "0" && link
+        if ActiveRecord::ConnectionAdapters::Column::FALSE_VALUES.include?(links_hashes[:_destroy])
+          link = Link.find_or_create_by(url: links_hashes[:url])
           LinksPlaylist.create(link: link, playlist: self)
-        elsif links_hashes[:_destroy] == "0"
-          self.links.build(url: links_hashes[:url])
         end
       end
 
