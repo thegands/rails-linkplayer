@@ -11,7 +11,7 @@ class Link < ActiveRecord::Base
   end
 
   def self.process_links(links_attributes)
-    hi = links_attributes.values.collect do |link_attr|
+    links_attributes.values.collect do |link_attr|
       unless empty_url_or_destroy?(link_attr)
         Link.find_or_create_by(url: link_attr[:url])
       end
