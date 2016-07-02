@@ -4,7 +4,6 @@ class Playlist < ActiveRecord::Base
   has_many :links_playlist
   has_many :links, through: :links_playlist
 
-  validates_associated :links
   accepts_nested_attributes_for :links, allow_destroy: true
 
   validates :user, :title, presence: true
