@@ -11,11 +11,16 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Playlist.find(params[:playlist_id]).comments.build
+    @playlist = Playlist.find(params[:playlist_id])
+    @comment = @playlist.comments.build
     authorize @comment
-    @comment.user = current_user
-    @comment.update(comment_params)
-    respond_with(@comment.playlist)
+    # @comment.update(comment_params)
+    # respond_with(@comment.playlist)
+    if @comment.update(comment_params)
+      redirect_to @comment.playlist, :notice => "Comment was successfully created."
+    else
+      redirect_to @comment.playlist, :alert => "Comment cannot be blank!"
+    end
   end
 
   def update
@@ -35,6 +40,6 @@ class CommentsController < ApplicationController
     end
 
     def comment_params
-      params.require(:comment).permit(:text)
+      params.require(:comment).permit(:text).merge(user_id: current_user.id)
     end
 end

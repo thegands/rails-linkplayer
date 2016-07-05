@@ -30,11 +30,11 @@
     </div>
     <main role="main" class="mdl-layout__content">
       <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--12-col"><%= render 'layouts/messages' %></div>
-      </div>
-      <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-        <div class="mdl-color--white mdl-shadow--4dp content mdl-cell mdl-cell--8-col"><%= yield %></div>
+        <div class="mdl-color--white mdl-shadow--4dp content mdl-cell mdl-cell--8-col">
+          <div class="mdl-cell mdl-cell--12-col"><%= render 'layouts/messages' %></div>
+          <%= yield %>
+        </div>
       </div>
     </main>
   </div>
