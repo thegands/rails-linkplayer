@@ -25,16 +25,15 @@ class PlaylistsController < ApplicationController
 
   def create
     @playlist = Playlist.new(playlist_params)
-    @playlist.links = processed_links
+    authorize @playlist
     @playlist.save
     authorize @playlist
     respond_with(@playlist)
   end
 
   def update
-    @playlist.update(update_playlist_params)
-    @playlist.links = processed_links
-    @playlist.save
+    authorize @playlist
+    @playlist.update(playlist_params)
     respond_with(@playlist)
   end
 
@@ -53,24 +52,7 @@ class PlaylistsController < ApplicationController
       params.require(:playlist).permit(
         :title,
         :description,
+        links_attributes: [:url, :id, :_destroy]
       ).merge(user_id: current_user.id)
     end
-
-    def update_playlist_params
-      params.require(:playlist).permit(
-        :title,
-        :description
-      )
-    end
-
-    def links_attributes
-      params.require(:playlist).permit(
-        links_attributes: [:url, :_destroy]
-      )[:links_attributes]
-    end
-
-    def processed_links
-       Link.process_links(links_attributes)
-    end
-
 end

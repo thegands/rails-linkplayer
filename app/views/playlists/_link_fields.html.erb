@@ -1,6 +1,8 @@
-<fieldset>
+<fieldset class="link-field">
   <%= f.label :url %>
   <%= f.text_field :url %>
+  <%#= f.check_box :_destroy %>
+  <%#= f.label :_destroy, "Remove URL" %>
   <%= f.hidden_field :_destroy %>
   <%= link_to "remove", '#', class: "remove_fields" %>
 </fieldset>
