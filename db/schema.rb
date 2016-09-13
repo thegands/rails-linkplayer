@@ -39,19 +39,12 @@ ActiveRecord::Schema.define(version: 20160702042734) do
     t.string   "title"
     t.text     "description"
     t.integer  "user_id"
+    t.boolean  "private"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "playlists", ["user_id"], name: "index_playlists_on_user_id"
-
-  create_table "playlists_users", id: false, force: true do |t|
-    t.integer  "playlist_id", null: false
-    t.integer  "user_id",     null: false
-    t.text     "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

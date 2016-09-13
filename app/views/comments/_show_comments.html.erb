@@ -12,7 +12,7 @@
     <tbody>
       <% @playlist.comments.each do |comment| %>
         <tr>
-          <td><%= comment.created_at.to_date.to_s %></td>
+          <td><%= format_time(comment.created_at) %></td>
           <td><%= comment.user.email %></td>
           <td><%= comment.text %></td>
           <td><%= link_to 'Show', [@playlist, comment] %></td>

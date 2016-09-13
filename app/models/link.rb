@@ -4,6 +4,7 @@ class Link < ActiveRecord::Base
 
   validates_uniqueness_of :url
   validate :valid_url
+  # validates :url, presence: true
 
   def valid_url
     if self.url.present? && !URI.parse(self.url).kind_of?(URI::HTTP)

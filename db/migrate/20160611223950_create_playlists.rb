@@ -4,6 +4,7 @@ class CreatePlaylists < ActiveRecord::Migration
       t.string :title
       t.text :description
       t.references :user, index: true
+      t.boolean :private
 
       t.timestamps
     end

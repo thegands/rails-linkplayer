@@ -25,6 +25,10 @@
     <% end %>
     <%= link_to_add_url "Add URL", f, :links %>
   </div>
+  <div class="field">
+    <%= f.label :private %><br>
+    <%= f.check_box :private %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
