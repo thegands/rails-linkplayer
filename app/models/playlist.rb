@@ -5,7 +5,7 @@ class Playlist < ActiveRecord::Base
   has_many :comments
   # accepts_nested_attributes_for :links, allow_destroy: true
 
-  validates :user, :title, presence: true
+  validates :user, :title, :private, presence: true
 
   def links_attributes=(links_hashes)
     if self.valid?

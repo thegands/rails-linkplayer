@@ -4,7 +4,11 @@ class PlaylistsController < ApplicationController
   respond_to :html
 
   def index
-    @playlists = Playlist.all
+    if user_signed_in?
+      @playlists = Playlist.find_by_sql("#{Playlist.where(private: false).to_sql} UNION #{Playlist.where(private: true, user: current_user).to_sql}")
+    else
+      @playlists = Playlist.where(private: false)
+    end
     respond_with(@playlists)
   end
 
@@ -52,6 +56,7 @@ class PlaylistsController < ApplicationController
       params.require(:playlist).permit(
         :title,
         :description,
+        :private,
         links_attributes: [:url, :id, :_destroy]
       ).merge(user_id: current_user.id)
     end
