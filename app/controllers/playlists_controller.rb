@@ -31,7 +31,6 @@ class PlaylistsController < ApplicationController
     @playlist = Playlist.new(playlist_params)
     authorize @playlist
     @playlist.save
-    authorize @playlist
     respond_with(@playlist)
   end
 

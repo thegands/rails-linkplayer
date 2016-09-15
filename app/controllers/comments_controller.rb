@@ -7,6 +7,15 @@ class CommentsController < ApplicationController
     @playlist = Playlist.find(params[:playlist_id])
   end
 
+  def new
+    @playlist = Playlist.find(params[:playlist_id])
+    @comment = @playlist.comments.build
+    authorize @comment
+  end
+
+  def show
+  end
+
   def edit
   end
 
