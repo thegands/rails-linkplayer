@@ -46,6 +46,11 @@ class PlaylistsController < ApplicationController
     respond_with(@playlist)
   end
 
+  def popular
+    @link = Link.most_popular
+    @playlists = @link.playlists.where(private: false)
+  end
+
   private
     def set_playlist
       @playlist = Playlist.find(params[:id])

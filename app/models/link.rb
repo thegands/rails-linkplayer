@@ -12,4 +12,8 @@ class Link < ActiveRecord::Base
     end
   end
 
+  def self.most_popular
+    find(LinksPlaylist.group(:link_id).count.max[0])
+  end
+
 end
